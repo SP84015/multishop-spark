@@ -1,42 +1,80 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
-All colors MUST be HSL.
-*/
+/* Modern Multi-Shop Website Design System */
 
 @layer base {
   :root {
+    /* Base Colors */
     --background: 0 0% 100%;
-    --foreground: 222.2 84% 4.9%;
+    --foreground: 220 13% 18%;
 
+    /* Card System */
     --card: 0 0% 100%;
-    --card-foreground: 222.2 84% 4.9%;
+    --card-foreground: 220 13% 18%;
 
+    /* Interactive Elements */
     --popover: 0 0% 100%;
-    --popover-foreground: 222.2 84% 4.9%;
+    --popover-foreground: 220 13% 18%;
 
-    --primary: 222.2 47.4% 11.2%;
-    --primary-foreground: 210 40% 98%;
+    /* Brand Colors */
+    --primary: 234 89% 74%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 234 89% 84%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222.2 47.4% 11.2%;
+    /* Content Hierarchy */
+    --secondary: 220 14% 96%;
+    --secondary-foreground: 220 13% 18%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 220 14% 96%;
+    --muted-foreground: 220 9% 46%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222.2 47.4% 11.2%;
+    --accent: 234 89% 74%;
+    --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    /* Status Colors */
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%;
+    --success: 142 76% 36%;
+    --success-foreground: 0 0% 100%;
 
-    --radius: 0.5rem;
+    --warning: 38 92% 50%;
+    --warning-foreground: 0 0% 100%;
+
+    /* Form Elements */
+    --border: 220 13% 91%;
+    --input: 220 13% 91%;
+    --ring: 234 89% 74%;
+
+    /* Layout */
+    --radius: 0.75rem;
+    --header-height: 4rem;
+
+    /* Gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(234 89% 74%), hsl(234 89% 84%));
+    --gradient-hero: linear-gradient(135deg, hsl(234 89% 97%), hsl(0 0% 100%));
+    --gradient-card: linear-gradient(145deg, hsl(0 0% 100%), hsl(220 14% 98%));
+
+    /* Shadows */
+    --shadow-soft: 0 2px 8px -2px hsl(220 13% 18% / 0.04);
+    --shadow-medium: 0 4px 12px -2px hsl(220 13% 18% / 0.08);
+    --shadow-strong: 0 8px 32px -4px hsl(220 13% 18% / 0.12);
+    --shadow-glow: 0 0 0 1px hsl(234 89% 74% / 0.1), 0 4px 16px -4px hsl(234 89% 74% / 0.3);
+
+    /* Theme Colors */
+    --theme-blue: 234 89% 74%;
+    --theme-green: 142 76% 36%;
+    --theme-red: 0 84% 60%;
+    --theme-orange: 38 92% 50%;
+    --theme-purple: 271 81% 56%;
+
+    /* Animations */
+    --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-bounce: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 
     --sidebar-background: 0 0% 98%;
 
@@ -101,5 +139,137 @@ All colors MUST be HSL.
 
   body {
     @apply bg-background text-foreground;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: 600;
+    line-height: 1.2;
+  }
+}
+
+@layer components {
+  /* Card Variants */
+  .card-elevated {
+    @apply bg-card border border-border rounded-lg shadow-soft;
+    background: var(--gradient-card);
+  }
+
+  .card-interactive {
+    @apply card-elevated transition-all duration-300 hover:shadow-medium hover:scale-[1.02] cursor-pointer;
+  }
+
+  .card-hero {
+    @apply relative overflow-hidden rounded-xl;
+    background: var(--gradient-hero);
+    box-shadow: var(--shadow-strong);
+  }
+
+  /* Button Variants */
+  .btn-hero {
+    @apply relative overflow-hidden rounded-lg px-8 py-4 font-semibold text-primary-foreground;
+    background: var(--gradient-primary);
+    box-shadow: var(--shadow-glow);
+    transition: var(--transition-smooth);
+  }
+
+  .btn-hero:hover {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-strong), var(--shadow-glow);
+  }
+
+  .btn-ghost {
+    @apply relative px-6 py-3 rounded-lg font-medium text-foreground transition-all duration-300;
+    background: transparent;
+  }
+
+  .btn-ghost:hover {
+    @apply bg-muted/50;
+  }
+
+  /* Layout Components */
+  .section-padding {
+    @apply px-4 sm:px-6 lg:px-8;
+  }
+
+  .container-responsive {
+    @apply mx-auto max-w-7xl section-padding;
+  }
+
+  .nav-sticky {
+    @apply sticky top-0 z-50 backdrop-blur-lg bg-background/80 border-b border-border;
+    height: var(--header-height);
+  }
+
+  /* Theme Variants */
+  .theme-blue { --primary: var(--theme-blue); --accent: var(--theme-blue); }
+  .theme-green { --primary: var(--theme-green); --accent: var(--theme-green); }
+  .theme-red { --primary: var(--theme-red); --accent: var(--theme-red); }
+  .theme-orange { --primary: var(--theme-orange); --accent: var(--theme-orange); }
+  .theme-purple { --primary: var(--theme-purple); --accent: var(--theme-purple); }
+
+  /* Gallery Grid */
+  .gallery-grid {
+    @apply grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4;
+  }
+
+  .gallery-item {
+    @apply relative overflow-hidden rounded-lg aspect-square cursor-pointer group;
+  }
+
+  .gallery-item img {
+    @apply w-full h-full object-cover transition-transform duration-500 group-hover:scale-110;
+  }
+
+  /* Animation Utilities */
+  .animate-fade-in {
+    animation: fadeIn 0.6s ease-out forwards;
+  }
+
+  .animate-slide-up {
+    animation: slideUp 0.8s ease-out forwards;
+  }
+
+  .animate-bounce-in {
+    animation: bounceIn 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .shadow-soft {
+    box-shadow: var(--shadow-soft);
+  }
+  
+  .shadow-medium {
+    box-shadow: var(--shadow-medium);
+  }
+  
+  .shadow-strong {
+    box-shadow: var(--shadow-strong);
+  }
+  
+  .shadow-glow {
+    box-shadow: var(--shadow-glow);
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  from { opacity: 0; transform: scale(0.3); }
+  to { opacity: 1; transform: scale(1); }
 }
