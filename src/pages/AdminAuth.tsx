@@ -25,7 +25,7 @@ const AdminAuth = () => {
     );
   }
 
-  if (user && isAdmin) {
+  if (user) {
     return <Navigate to="/admin/dashboard" replace />;
   }
 
