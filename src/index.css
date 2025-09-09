@@ -215,11 +215,11 @@
   }
 
   .gallery-item {
-    @apply relative overflow-hidden rounded-lg aspect-square cursor-pointer group;
+    @apply relative overflow-hidden rounded-lg aspect-square cursor-pointer;
   }
 
   .gallery-item img {
-    @apply w-full h-full object-cover transition-transform duration-500 group-hover:scale-110;
+    @apply w-full h-full object-cover transition-transform duration-500;
   }
 
   /* Animation Utilities */

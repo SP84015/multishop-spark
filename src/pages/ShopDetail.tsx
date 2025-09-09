@@ -169,10 +169,10 @@ const ShopDetail = () => {
                 {shop.images.map((image, index) => (
                   <div
                     key={index}
-                    className="gallery-item"
+                    className="gallery-item group"
                     onClick={() => setSelectedImage(image)}
                   >
-                    <img src={image} alt={`${shop.name} gallery ${index + 1}`} />
+                    <img src={image} alt={`${shop.name} gallery ${index + 1}`} className="group-hover:scale-110" />
                     <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300 flex items-center justify-center">
                       <div className="opacity-0 group-hover:opacity-100 transition-opacity duration-300 text-white font-medium">
                         View Image
