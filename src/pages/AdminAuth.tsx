@@ -84,12 +84,17 @@ const AdminAuth = () => {
       
       if (error) {
         if (error.message.includes('User already registered')) {
-          setError('An account with this email already exists');
+          setError('An account with this email already exists. Try signing in instead.');
+        } else if (error.message.includes('Email not confirmed')) {
+          toast.success('Please check your email and click the confirmation link to complete signup.');
         } else {
           setError(error.message);
         }
       } else {
-        toast.success('Account created! Please check your email to confirm your account.');
+        toast.success('Account created! Please check your email to confirm your account before signing in.');
+        // Switch to sign in tab after successful signup
+        const signInTab = document.querySelector('[value="signin"]') as HTMLElement;
+        signInTab?.click();
       }
     } catch (error) {
       setError('An unexpected error occurred');

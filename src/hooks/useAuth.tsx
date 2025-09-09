@@ -71,15 +71,24 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const signUp = async (email: string, password: string) => {
-    const redirectUrl = `${window.location.origin}/`;
+    const redirectUrl = `${window.location.origin}/admin/dashboard`;
     
-    const { error } = await supabase.auth.signUp({
+    console.log('Signing up with:', { email, redirectUrl });
+    
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
       options: {
         emailRedirectTo: redirectUrl
       }
     });
+    
+    console.log('Signup response:', { data, error });
+    
+    if (data?.user && !data?.session) {
+      console.log('User created but needs email confirmation');
+    }
+    
     return { error };
   };
 
