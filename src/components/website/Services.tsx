@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useTranslation } from "@/contexts/TranslationContext";
 import { supabase } from "@/integrations/supabase/client";
 import { Calendar, MapPin, Flower, Camera, ChefHat, Sprout } from "lucide-react";
 
@@ -22,6 +23,7 @@ const iconMap = {
 export const Services = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -69,12 +71,11 @@ export const Services = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Our Services
+              {t("nav.services", "Our Services")}
             </h2>
             <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              From custom iron gates to decorative metalwork, we offer comprehensive ironwork services 
-              to bring your vision to life.
+              {t("services.description", "From custom iron gates to decorative metalwork, we offer comprehensive ironwork services to bring your vision to life.")}
             </p>
           </div>
 
