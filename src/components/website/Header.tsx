@@ -5,6 +5,7 @@ import { useTranslation } from "@/contexts/TranslationContext";
 import { Menu, X, Heart } from "lucide-react";
 
 interface Website {
+  id: string;
   name: string;
   logo_url?: string;
 }
