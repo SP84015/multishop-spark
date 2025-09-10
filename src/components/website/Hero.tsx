@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Wrench, ArrowDown } from "lucide-react";
+import { useTranslation } from "@/contexts/TranslationContext";
 import heroImage from "@/assets/hero-ironwork.jpg";
 
 interface Website {
@@ -8,6 +9,8 @@ interface Website {
 }
 
 export const Hero = ({ website }: { website?: Website }) => {
+  const { t } = useTranslation();
+  
   const scrollToSection = (sectionId: string) => {
     const element = document.getElementById(sectionId);
     if (element) {
@@ -42,12 +45,11 @@ export const Hero = ({ website }: { website?: Website }) => {
         </div>
         
         <p className="text-xl md:text-2xl mb-8 leading-relaxed">
-          Master Craftsmen in Ironwork & Metal Fabrication
+          {t("hero.title", "Master Craftsmen in Ironwork & Metal Fabrication")}
         </p>
         
         <p className="text-lg mb-12 opacity-90 max-w-2xl mx-auto">
-          From custom iron gates to decorative baskets, we create exceptional metalwork solutions. 
-          Quality craftsmanship meets modern design for residential and commercial properties.
+          {t("hero.description", "From custom iron gates to decorative baskets, we create exceptional metalwork solutions. Quality craftsmanship meets modern design for residential and commercial properties.")}
         </p>
 
         <div className="flex flex-col sm:flex-row gap-4 justify-center">
@@ -56,7 +58,7 @@ export const Hero = ({ website }: { website?: Website }) => {
             onClick={() => scrollToSection("services")}
             className="bg-primary hover:bg-primary/90 text-primary-foreground px-8 py-3 text-lg"
           >
-            Our Services
+            {t("nav.services", "Our Services")}
           </Button>
           <Button
             variant="outline"
@@ -64,7 +66,7 @@ export const Hero = ({ website }: { website?: Website }) => {
             onClick={() => scrollToSection("contact")}
             className="border-white text-white hover:bg-white hover:text-primary px-8 py-3 text-lg"
           >
-            Get in Touch
+            {t("hero.cta.contact", "Get in Touch")}
           </Button>
         </div>
       </div>

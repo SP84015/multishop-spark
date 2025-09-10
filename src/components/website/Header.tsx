@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import { LanguageSwitcher } from "@/components/ui/language-switcher";
+import { useTranslation } from "@/contexts/TranslationContext";
 import { Menu, X, Heart } from "lucide-react";
 
 interface Website {
@@ -10,6 +12,7 @@ interface Website {
 export const Header = ({ website }: { website?: Website }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -52,43 +55,46 @@ export const Header = ({ website }: { website?: Website }) => {
               onClick={() => scrollToSection("home")}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Home
+              {t("nav.home", "Home")}
             </button>
             <button
               onClick={() => scrollToSection("about")}
               className="text-foreground hover:text-primary transition-colors"
             >
-              About
+              {t("nav.about", "About")}
             </button>
             <button
               onClick={() => scrollToSection("services")}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Services
+              {t("nav.services", "Services")}
             </button>
             <button
               onClick={() => scrollToSection("gallery")}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Gallery
+              {t("nav.gallery", "Gallery")}
             </button>
             <button
               onClick={() => scrollToSection("contact")}
               className="text-foreground hover:text-primary transition-colors"
             >
-              Contact
+              {t("nav.contact", "Contact")}
             </button>
+            <LanguageSwitcher />
           </nav>
 
           {/* Mobile Menu Button */}
-          <Button
-            variant="ghost"
-            size="icon"
-            className="md:hidden"
-            onClick={() => setIsMenuOpen(!isMenuOpen)}
-          >
-            {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </Button>
+          <div className="flex items-center gap-2 md:hidden">
+            <LanguageSwitcher />
+            <Button
+              variant="ghost"
+              size="icon"
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+            >
+              {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+            </Button>
+          </div>
         </div>
 
         {/* Mobile Navigation */}
@@ -99,31 +105,31 @@ export const Header = ({ website }: { website?: Website }) => {
                 onClick={() => scrollToSection("home")}
                 className="text-left text-foreground hover:text-primary transition-colors"
               >
-                Home
+                {t("nav.home", "Home")}
               </button>
               <button
                 onClick={() => scrollToSection("about")}
                 className="text-left text-foreground hover:text-primary transition-colors"
               >
-                About
+                {t("nav.about", "About")}
               </button>
               <button
                 onClick={() => scrollToSection("services")}
                 className="text-left text-foreground hover:text-primary transition-colors"
               >
-                Services
+                {t("nav.services", "Services")}
               </button>
               <button
                 onClick={() => scrollToSection("gallery")}
                 className="text-left text-foreground hover:text-primary transition-colors"
               >
-                Gallery
+                {t("nav.gallery", "Gallery")}
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
                 className="text-left text-foreground hover:text-primary transition-colors"
               >
-                Contact
+                {t("nav.contact", "Contact")}
               </button>
             </div>
           </nav>

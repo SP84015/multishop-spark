@@ -6,9 +6,11 @@ import { Services } from "@/components/website/Services";
 import { Gallery } from "@/components/website/Gallery";
 import { Contact } from "@/components/website/Contact";
 import { Footer } from "@/components/website/Footer";
+import { TranslationProvider } from "@/contexts/TranslationContext";
 import { supabase } from "@/integrations/supabase/client";
 
 interface Website {
+  id: string;
   name: string;
   slug: string;
   about_title?: string;
@@ -90,17 +92,19 @@ const Index = () => {
   }
 
   return (
-    <div className="min-h-screen">
-      <Header website={website} />
-      <main>
-        <Hero website={website} />
-        <About website={website} />
-        <Services />
-        <Gallery />
-        <Contact website={website} />
-      </main>
-      <Footer website={website} />
-    </div>
+    <TranslationProvider websiteId={website?.id}>
+      <div className="min-h-screen">
+        <Header website={website} />
+        <main>
+          <Hero website={website} />
+          <About website={website} />
+          <Services />
+          <Gallery />
+          <Contact website={website} />
+        </main>
+        <Footer website={website} />
+      </div>
+    </TranslationProvider>
   );
 };
 

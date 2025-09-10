@@ -413,6 +413,44 @@ export type Database = {
           },
         ]
       }
+      website_translations: {
+        Row: {
+          content_key: string
+          content_value: string
+          created_at: string
+          id: string
+          language_code: string
+          updated_at: string
+          website_id: string
+        }
+        Insert: {
+          content_key: string
+          content_value: string
+          created_at?: string
+          id?: string
+          language_code: string
+          updated_at?: string
+          website_id: string
+        }
+        Update: {
+          content_key?: string
+          content_value?: string
+          created_at?: string
+          id?: string
+          language_code?: string
+          updated_at?: string
+          website_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "website_translations_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "websites"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       websites: {
         Row: {
           about_content: string | null
