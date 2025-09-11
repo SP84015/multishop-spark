@@ -18,6 +18,7 @@ interface Website {
 }
 
 export const Contact = ({ website }: { website?: Website }) => {
+  const { t } = useTranslation();
   const [formData, setFormData] = useState({
     name: "",
     email: "",

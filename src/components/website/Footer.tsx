@@ -11,6 +11,7 @@ interface Website {
 }
 
 export const Footer = ({ website }: { website?: Website }) => {
+  const { t } = useTranslation();
   return (
     <footer className="bg-primary text-primary-foreground py-12">
       <div className="container mx-auto px-4">
