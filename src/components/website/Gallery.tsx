@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
-import { supabase } from "@/integrations/supabase/client";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { getGalleryImageUrl } from "@/assets/gallery-images";
+import { Button } from "@/components/ui/button";
+import { supabase } from "@/integrations/supabase/client";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface GalleryImage {
   id: string;
@@ -12,9 +13,10 @@ interface GalleryImage {
 }
 
 export const Gallery = () => {
+  const { t } = useTranslation();
   const [images, setImages] = useState<GalleryImage[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedImageIndex, setSelectedImageIndex] = useState(0);
+  const [selectedImageIndex, setSelectedImageIndex] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchGallery = async () => {
@@ -45,19 +47,23 @@ export const Gallery = () => {
   }, []);
 
   const nextImage = () => {
-    setSelectedImageIndex((prev) => (prev + 1) % images.length);
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex + 1) % images.length);
+    }
   };
 
   const prevImage = () => {
-    setSelectedImageIndex((prev) => (prev - 1 + images.length) % images.length);
+    if (selectedImageIndex !== null) {
+      setSelectedImageIndex((selectedImageIndex - 1 + images.length) % images.length);
+    }
   };
 
   if (loading) {
     return (
-      <section id="gallery" className="py-20 bg-secondary">
+      <section id="gallery" className="py-20 bg-gray-50">
         <div className="container mx-auto px-4">
           <div className="text-center">
-            <div className="animate-pulse">Loading gallery...</div>
+            <p>{t("gallery.loading", "Loading gallery...")}</p>
           </div>
         </div>
       </section>
@@ -65,73 +71,66 @@ export const Gallery = () => {
   }
 
   return (
-    <section id="gallery" className="py-20 bg-secondary">
+    <section id="gallery" className="py-20 bg-gray-50">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              Our Gallery
-            </h2>
-            <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Explore our portfolio of custom ironwork projects showcasing exceptional metalwork 
-              craftsmanship and artistic design.
-            </p>
-          </div>
+        <div className="text-center mb-12">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
+            {t("gallery.title", "Our Gallery")}
+          </h2>
+          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+            {t("gallery.description", "Explore our portfolio of exceptional ironwork projects. Each piece tells a story of craftsmanship, creativity, and attention to detail.")}
+          </p>
+        </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {images.map((image, index) => (
-              <Dialog key={image.id}>
-                <DialogTrigger asChild>
-                  <div
-                    className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
-                    onClick={() => setSelectedImageIndex(index)}
-                  >
-                    <img
-                      src={getGalleryImageUrl(image.image_url)}
-                      alt={image.alt_text}
-                      className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                    <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
-                  </div>
-                </DialogTrigger>
-                <DialogContent className="max-w-4xl w-full p-0 border-0">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+          {images.map((image, index) => (
+            <Dialog key={image.id}>
+              <DialogTrigger asChild>
+                <div
+                  className="relative cursor-pointer group overflow-hidden rounded-lg shadow-md hover:shadow-xl transition-all duration-300"
+                  onClick={() => setSelectedImageIndex(index)}
+                >
+                  <img
+                    src={image.image_url}
+                    alt={image.alt_text}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
+                </div>
+              </DialogTrigger>
+              <DialogContent className="max-w-4xl w-full p-0 border-0">
+                {selectedImageIndex !== null && (
                   <div className="relative">
                     <img
-                      src={getGalleryImageUrl(images[selectedImageIndex]?.image_url)}
+                      src={images[selectedImageIndex]?.image_url}
                       alt={images[selectedImageIndex]?.alt_text}
                       className="w-full h-auto max-h-[80vh] object-contain"
                     />
                     
-                    {/* Navigation buttons */}
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        prevImage();
-                      }}
-                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={prevImage}
+                      className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white"
                     >
-                      <ChevronLeft className="h-6 w-6" />
-                    </button>
-                    <button
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        nextImage();
-                      }}
-                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 hover:bg-black/70 text-white p-2 rounded-full transition-colors"
+                      <ChevronLeft className="h-4 w-4" />
+                    </Button>
+                    <Button
+                      variant="outline"
+                      size="icon"
+                      onClick={nextImage}
+                      className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/90 hover:bg-white"
                     >
-                      <ChevronRight className="h-6 w-6" />
-                    </button>
-
-                    {/* Image counter */}
-                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full text-sm">
-                      {selectedImageIndex + 1} / {images.length}
+                      <ChevronRight className="h-4 w-4" />
+                    </Button>
+                    <div className="absolute bottom-4 left-1/2 -translate-x-1/2 bg-black/50 text-white px-3 py-1 rounded-full">
+                      {selectedImageIndex + 1} {t("gallery.of", "of")} {images.length}
                     </div>
                   </div>
-                </DialogContent>
-              </Dialog>
-            ))}
-          </div>
+                )}
+              </DialogContent>
+            </Dialog>
+          ))}
         </div>
       </div>
     </section>

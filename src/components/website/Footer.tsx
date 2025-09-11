@@ -1,9 +1,11 @@
-import { Heart, Facebook, Instagram, Twitter, Linkedin } from "lucide-react";
+import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from "lucide-react";
+import { useTranslation } from "@/contexts/TranslationContext";
 
 interface Website {
   name: string;
   contact_email?: string;
   contact_phone?: string;
+  contact_address?: string;
   social_facebook?: string;
   social_instagram?: string;
   social_twitter?: string;
@@ -12,129 +14,94 @@ interface Website {
 
 export const Footer = ({ website }: { website?: Website }) => {
   const { t } = useTranslation();
+
   return (
-    <footer className="bg-primary text-primary-foreground py-12">
+    <footer className="bg-gray-900 text-white py-12">
       <div className="container mx-auto px-4">
-        <div className="max-w-6xl mx-auto">
-          <div className="grid md:grid-cols-4 gap-8">
-            {/* Brand */}
-            <div className="md:col-span-1">
-              <div className="flex items-center space-x-2 mb-4">
-                <Heart className="h-8 w-8" />
-                <span className="text-xl font-bold">
-                  {website?.name || "Veldor"}
-                </span>
-              </div>
-              <p className="text-primary-foreground/80 text-sm">
-                Creating magical wedding moments and providing innovative big seed solutions 
-                for your special occasions.
-              </p>
+        <div className="grid md:grid-cols-4 gap-8">
+          <div>
+            <h3 className="text-xl font-bold mb-4">{website?.name || "Ironwork Studio"}</h3>
+            <p className="text-gray-300 text-sm">
+              Crafting exceptional ironwork with passion and precision. Every piece tells a story of artistry and dedication.
+            </p>
+          </div>
+
+          <div>
+            <h3 className="text-white font-semibold mb-4">{t("footer.quickLinks", "Quick Links")}</h3>
+            <ul className="space-y-2">
+              <li><a href="#home" className="text-gray-300 hover:text-white transition-colors">{t("nav.home", "Home")}</a></li>
+              <li><a href="#about" className="text-gray-300 hover:text-white transition-colors">{t("nav.about", "About")}</a></li>
+              <li><a href="#services" className="text-gray-300 hover:text-white transition-colors">{t("nav.services", "Services")}</a></li>
+              <li><a href="#gallery" className="text-gray-300 hover:text-white transition-colors">{t("nav.gallery", "Gallery")}</a></li>
+              <li><a href="#contact" className="text-gray-300 hover:text-white transition-colors">{t("nav.contact", "Contact")}</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-white font-semibold mb-4">{t("footer.services.title", "Our Services")}</h3>
+            <ul className="space-y-2">
+              <li className="text-gray-300">{t("footer.services.gates", "Custom Gates & Fencing")}</li>
+              <li className="text-gray-300">{t("footer.services.railings", "Decorative Railings")}</li>
+              <li className="text-gray-300">{t("footer.services.restoration", "Restoration Services")}</li>
+              <li className="text-gray-300">{t("footer.services.metalwork", "Custom Metalwork")}</li>
+              <li className="text-gray-300">{t("footer.services.sculptures", "Artistic Sculptures")}</li>
+            </ul>
+          </div>
+
+          <div>
+            <h3 className="text-white font-semibold mb-4">{t("footer.contact.title", "Contact Info")}</h3>
+            <div className="space-y-3">
+              {website?.contact_email && (
+                <div className="flex items-center space-x-2">
+                  <Mail className="h-4 w-4 text-gray-300" />
+                  <span className="text-gray-300">{website.contact_email}</span>
+                </div>
+              )}
+              {website?.contact_phone && (
+                <div className="flex items-center space-x-2">
+                  <Phone className="h-4 w-4 text-gray-300" />
+                  <span className="text-gray-300">{website.contact_phone}</span>
+                </div>
+              )}
+              {website?.contact_address && (
+                <div className="flex items-center space-x-2">
+                  <MapPin className="h-4 w-4 text-gray-300" />
+                  <span className="text-gray-300">{website.contact_address}</span>
+                </div>
+              )}
             </div>
 
-            {/* Quick Links */}
-            <div>
-              <h3 className="font-semibold mb-4">Quick Links</h3>
-              <ul className="space-y-2 text-sm">
-                <li>
-                  <a href="#home" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                    Home
-                  </a>
-                </li>
-                <li>
-                  <a href="#about" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                    About Us
-                  </a>
-                </li>
-                <li>
-                  <a href="#services" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                    Services
-                  </a>
-                </li>
-                <li>
-                  <a href="#gallery" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                    Gallery
-                  </a>
-                </li>
-                <li>
-                  <a href="#contact" className="text-primary-foreground/80 hover:text-primary-foreground transition-colors">
-                    Contact
-                  </a>
-                </li>
-              </ul>
-            </div>
-
-            {/* Services */}
-            <div>
-              <h3 className="font-semibold mb-4">Services</h3>
-              <ul className="space-y-2 text-sm text-primary-foreground/80">
-                <li>Wedding Planning</li>
-                <li>Venue Selection</li>
-                <li>Floral Design</li>
-                <li>Photography</li>
-                <li>Catering</li>
-                <li>Big Seed Solutions</li>
-              </ul>
-            </div>
-
-            {/* Contact Info */}
-            <div>
-              <h3 className="font-semibold mb-4">Contact</h3>
-              <div className="space-y-2 text-sm text-primary-foreground/80">
-                <p>{website?.contact_email || "info@veldor.com"}</p>
-                <p>{website?.contact_phone || "+1 (555) 123-4567"}</p>
-              </div>
-              
-              {/* Social Links */}
-              <div className="flex space-x-3 mt-4">
+            <div className="mt-6">
+              <h4 className="text-white font-semibold mb-3">{t("footer.social.title", "Follow Us")}</h4>
+              <div className="flex space-x-3">
                 {website?.social_facebook && (
-                  <a
-                    href={website.social_facebook}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-                  >
+                  <a href={website.social_facebook} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                     <Facebook className="h-5 w-5" />
                   </a>
                 )}
                 {website?.social_instagram && (
-                  <a
-                    href={website.social_instagram}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-                  >
+                  <a href={website.social_instagram} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                     <Instagram className="h-5 w-5" />
                   </a>
                 )}
                 {website?.social_twitter && (
-                  <a
-                    href={website.social_twitter}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-                  >
+                  <a href={website.social_twitter} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                     <Twitter className="h-5 w-5" />
                   </a>
                 )}
                 {website?.social_linkedin && (
-                  <a
-                    href={website.social_linkedin}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-primary-foreground/80 hover:text-primary-foreground transition-colors"
-                  >
+                  <a href={website.social_linkedin} target="_blank" rel="noopener noreferrer" className="text-gray-300 hover:text-white transition-colors">
                     <Linkedin className="h-5 w-5" />
                   </a>
                 )}
               </div>
             </div>
           </div>
+        </div>
 
-          <div className="border-t border-primary-foreground/20 mt-8 pt-8 text-center">
-            <p className="text-sm text-primary-foreground/80">
-              © {new Date().getFullYear()} {website?.name || "Veldor"}. All rights reserved.
-            </p>
-          </div>
+        <div className="border-t border-gray-700 pt-8 text-center">
+          <p className="text-gray-400">
+            © {new Date().getFullYear()} {website?.name || "Ironwork Studio"}. {t("footer.copyright", "All rights reserved.")}</p>
         </div>
       </div>
     </footer>
