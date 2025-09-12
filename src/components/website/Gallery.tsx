@@ -4,7 +4,8 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "@/contexts/TranslationContext";
-
+import { getGalleryImageUrl } from "@/assets/gallery-images";
+import galleryFallback from "@/assets/gallery-fallback.jpg";
 interface GalleryImage {
   id: string;
   image_url: string;
@@ -25,7 +26,7 @@ export const Gallery = () => {
           .from("websites_public")
           .select("id")
           .eq("is_active", true)
-          .single();
+          .maybeSingle();
 
         if (website) {
           const { data: galleryData } = await supabase
@@ -91,8 +92,10 @@ export const Gallery = () => {
                   onClick={() => setSelectedImageIndex(index)}
                 >
                   <img
-                    src={image.image_url}
-                    alt={image.alt_text}
+                    src={getGalleryImageUrl(image.image_url)}
+                    alt={image.alt_text || "Ironwork gallery image"}
+                    loading="lazy"
+                    onError={(e) => { e.currentTarget.src = galleryFallback; }}
                     className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-300"
                   />
                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-300" />
@@ -102,8 +105,10 @@ export const Gallery = () => {
                 {selectedImageIndex !== null && (
                   <div className="relative">
                     <img
-                      src={images[selectedImageIndex]?.image_url}
-                      alt={images[selectedImageIndex]?.alt_text}
+                      src={getGalleryImageUrl(images[selectedImageIndex]?.image_url || "")}
+                      alt={images[selectedImageIndex]?.alt_text || "Ironwork gallery image"}
+                      loading="lazy"
+                      onError={(e) => { e.currentTarget.src = galleryFallback; }}
                       className="w-full h-auto max-h-[80vh] object-contain"
                     />
                     

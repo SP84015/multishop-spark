@@ -24,6 +24,8 @@ export const Services = () => {
   const [services, setServices] = useState<Service[]>([]);
   const [loading, setLoading] = useState(true);
   const { t } = useTranslation();
+  const slugify = (str: string) =>
+    str.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/(^-|-$)/g, "");
 
   useEffect(() => {
     const fetchServices = async () => {
@@ -32,7 +34,7 @@ export const Services = () => {
           .from("websites_public")
           .select("id")
           .eq("is_active", true)
-          .single();
+          .maybeSingle();
 
         if (website) {
           const { data: servicesData } = await supabase
@@ -89,11 +91,11 @@ export const Services = () => {
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="h-8 w-8 text-primary" />
                     </div>
-                    <CardTitle className="text-xl text-card-foreground">{t(`service.${service.id}.title`, service.title)}</CardTitle>
+                    <CardTitle className="text-xl text-card-foreground">{t(`service.${slugify(service.title)}.title`, service.title)}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-center text-muted-foreground leading-relaxed">
-                      {t(`service.${service.id}.description`, service.description)}
+                      {t(`service.${slugify(service.title)}.description`, service.description)}
                     </CardDescription>
                   </CardContent>
                 </Card>
