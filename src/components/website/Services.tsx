@@ -73,11 +73,11 @@ export const Services = () => {
         <div className="max-w-6xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-6">
-              {t("nav.services", "Our Services")}
+              {t("services.title", "Master Craftsmen in Ironwork")}
             </h2>
             <div className="w-24 h-1 bg-primary mx-auto mb-8"></div>
             <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              {t("services.description", "From custom iron gates to decorative metalwork, we offer comprehensive ironwork services to bring your vision to life.")}
+              {t("services.description", "At Veldor, we specialize in creating high-quality iron and metal products that combine traditional craftsmanship with modern design. From custom iron gates to decorative baskets, our skilled artisans deliver exceptional metalwork solutions for residential and commercial properties.")}
             </p>
           </div>
 
