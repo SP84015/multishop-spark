@@ -22,7 +22,7 @@ export const Gallery = () => {
     const fetchGallery = async () => {
       try {
         const { data: website } = await supabase
-          .from("websites")
+          .from("websites_public")
           .select("id")
           .eq("is_active", true)
           .single();

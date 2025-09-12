@@ -29,7 +29,7 @@ export const Services = () => {
     const fetchServices = async () => {
       try {
         const { data: website } = await supabase
-          .from("websites")
+          .from("websites_public")
           .select("id")
           .eq("is_active", true)
           .single();
@@ -89,11 +89,11 @@ export const Services = () => {
                     <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-4">
                       <IconComponent className="h-8 w-8 text-primary" />
                     </div>
-                    <CardTitle className="text-xl text-card-foreground">{service.title}</CardTitle>
+                    <CardTitle className="text-xl text-card-foreground">{t(`service.${service.id}.title`, service.title)}</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <CardDescription className="text-center text-muted-foreground leading-relaxed">
-                      {service.description}
+                      {t(`service.${service.id}.description`, service.description)}
                     </CardDescription>
                   </CardContent>
                 </Card>
