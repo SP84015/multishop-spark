@@ -15,10 +15,10 @@ export const About = ({ website }: { website?: Website }) => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
-            {t("about.title", website?.about_title || "About Our Ironwork Mastery")}
+            {website?.about_title || t("about.title", "About Our Ironwork Mastery")}
           </h2>
           <p className="text-lg text-gray-600 max-w-3xl mx-auto">
-            {t("about.description", website?.about_content || "With decades of experience in traditional and modern ironwork, we craft pieces that blend artistry with functionality. Our skilled artisans bring passion and precision to every project.")}
+            {website?.about_content || t("about.description", "With decades of experience in traditional and modern ironwork, we craft pieces that blend artistry with functionality. Our skilled artisans bring passion and precision to every project.")}
           </p>
         </div>
 
