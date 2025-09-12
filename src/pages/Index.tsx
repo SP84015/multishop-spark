@@ -17,9 +17,6 @@ interface Website {
   about_content?: string;
   logo_url?: string;
   banner_url?: string;
-  contact_email?: string;
-  contact_phone?: string;
-  contact_address?: string;
   social_facebook?: string;
   social_instagram?: string;
   social_twitter?: string;
@@ -27,6 +24,10 @@ interface Website {
   seo_title?: string;
   seo_description?: string;
   seo_keywords?: string;
+  theme_primary_color?: string;
+  theme_secondary_color?: string;
+  theme_accent_color?: string;
+  theme_font_family?: string;
 }
 
 const Index = () => {
@@ -37,7 +38,7 @@ const Index = () => {
     const fetchWebsite = async () => {
       try {
         const { data } = await supabase
-          .from("websites")
+          .from("websites_public")
           .select("*")
           .eq("is_active", true)
           .single();

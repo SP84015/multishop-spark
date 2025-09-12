@@ -120,6 +120,13 @@ export type Database = {
             referencedRelation: "websites"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "contact_submissions_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "websites_public"
+            referencedColumns: ["id"]
+          },
         ]
       }
       products: {
@@ -376,6 +383,13 @@ export type Database = {
             referencedRelation: "websites"
             referencedColumns: ["id"]
           },
+          {
+            foreignKeyName: "website_gallery_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "websites_public"
+            referencedColumns: ["id"]
+          },
         ]
       }
       website_services: {
@@ -409,6 +423,13 @@ export type Database = {
             columns: ["website_id"]
             isOneToOne: false
             referencedRelation: "websites"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "website_services_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "websites_public"
             referencedColumns: ["id"]
           },
         ]
@@ -447,6 +468,13 @@ export type Database = {
             columns: ["website_id"]
             isOneToOne: false
             referencedRelation: "websites"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "website_translations_website_id_fkey"
+            columns: ["website_id"]
+            isOneToOne: false
+            referencedRelation: "websites_public"
             referencedColumns: ["id"]
           },
         ]
@@ -534,9 +562,89 @@ export type Database = {
       }
     }
     Views: {
-      [_ in never]: never
+      websites_public: {
+        Row: {
+          about_content: string | null
+          about_title: string | null
+          banner_url: string | null
+          created_at: string | null
+          id: string | null
+          is_active: boolean | null
+          logo_url: string | null
+          name: string | null
+          seo_description: string | null
+          seo_keywords: string | null
+          seo_title: string | null
+          slug: string | null
+          social_facebook: string | null
+          social_instagram: string | null
+          social_linkedin: string | null
+          social_twitter: string | null
+          theme_accent_color: string | null
+          theme_font_family: string | null
+          theme_primary_color: string | null
+          theme_secondary_color: string | null
+          updated_at: string | null
+        }
+        Insert: {
+          about_content?: string | null
+          about_title?: string | null
+          banner_url?: string | null
+          created_at?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          logo_url?: string | null
+          name?: string | null
+          seo_description?: string | null
+          seo_keywords?: string | null
+          seo_title?: string | null
+          slug?: string | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          theme_accent_color?: string | null
+          theme_font_family?: string | null
+          theme_primary_color?: string | null
+          theme_secondary_color?: string | null
+          updated_at?: string | null
+        }
+        Update: {
+          about_content?: string | null
+          about_title?: string | null
+          banner_url?: string | null
+          created_at?: string | null
+          id?: string | null
+          is_active?: boolean | null
+          logo_url?: string | null
+          name?: string | null
+          seo_description?: string | null
+          seo_keywords?: string | null
+          seo_title?: string | null
+          slug?: string | null
+          social_facebook?: string | null
+          social_instagram?: string | null
+          social_linkedin?: string | null
+          social_twitter?: string | null
+          theme_accent_color?: string | null
+          theme_font_family?: string | null
+          theme_primary_color?: string | null
+          theme_secondary_color?: string | null
+          updated_at?: string | null
+        }
+        Relationships: []
+      }
     }
     Functions: {
+      get_website_contact_info: {
+        Args: { website_id: string }
+        Returns: {
+          contact_address: string
+          contact_email: string
+          contact_phone: string
+          id: string
+        }[]
+      }
       has_role: {
         Args: {
           _role: Database["public"]["Enums"]["app_role"]

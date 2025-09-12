@@ -8,11 +8,10 @@ import { Mail, Phone, MapPin, Facebook, Instagram, Twitter, Linkedin } from "luc
 import { toast } from "sonner";
 import { supabase } from "@/integrations/supabase/client";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useWebsiteContact } from "@/hooks/useWebsiteContact";
 
 interface Website {
-  contact_email?: string;
-  contact_phone?: string;
-  contact_address?: string;
+  id?: string;
   social_facebook?: string;
   social_instagram?: string;
   social_twitter?: string;
@@ -21,6 +20,7 @@ interface Website {
 
 export const Contact = ({ website }: { website?: Website }) => {
   const { t } = useTranslation();
+  const { contactInfo } = useWebsiteContact(website?.id);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -161,24 +161,24 @@ export const Contact = ({ website }: { website?: Website }) => {
               <CardTitle>{t("contact.info.title", "Contact Information")}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
-              {website?.contact_email && (
+              {contactInfo?.contact_email && (
                 <div className="flex items-center space-x-3">
                   <Mail className="h-5 w-5 text-primary" />
-                  <span>{website.contact_email}</span>
+                  <span>{contactInfo.contact_email}</span>
                 </div>
               )}
               
-              {website?.contact_phone && (
+              {contactInfo?.contact_phone && (
                 <div className="flex items-center space-x-3">
                   <Phone className="h-5 w-5 text-primary" />
-                  <span>{website.contact_phone}</span>
+                  <span>{contactInfo.contact_phone}</span>
                 </div>
               )}
               
-              {website?.contact_address && (
+              {contactInfo?.contact_address && (
                 <div className="flex items-center space-x-3">
                   <MapPin className="h-5 w-5 text-primary" />
-                  <span>{website.contact_address}</span>
+                  <span>{contactInfo.contact_address}</span>
                 </div>
               )}
               

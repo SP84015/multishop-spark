@@ -1,11 +1,10 @@
 import { Facebook, Instagram, Twitter, Linkedin, Mail, Phone, MapPin } from "lucide-react";
 import { useTranslation } from "@/contexts/TranslationContext";
+import { useWebsiteContact } from "@/hooks/useWebsiteContact";
 
 interface Website {
+  id?: string;
   name: string;
-  contact_email?: string;
-  contact_phone?: string;
-  contact_address?: string;
   social_facebook?: string;
   social_instagram?: string;
   social_twitter?: string;
@@ -14,6 +13,7 @@ interface Website {
 
 export const Footer = ({ website }: { website?: Website }) => {
   const { t } = useTranslation();
+  const { contactInfo } = useWebsiteContact(website?.id);
 
   return (
     <footer className="bg-gray-900 text-white py-12">
@@ -51,22 +51,22 @@ export const Footer = ({ website }: { website?: Website }) => {
           <div>
             <h3 className="text-white font-semibold mb-4">{t("footer.contact.title", "Contact Info")}</h3>
             <div className="space-y-3">
-              {website?.contact_email && (
+              {contactInfo?.contact_email && (
                 <div className="flex items-center space-x-2">
                   <Mail className="h-4 w-4 text-gray-300" />
-                  <span className="text-gray-300">{website.contact_email}</span>
+                  <span className="text-gray-300">{contactInfo.contact_email}</span>
                 </div>
               )}
-              {website?.contact_phone && (
+              {contactInfo?.contact_phone && (
                 <div className="flex items-center space-x-2">
                   <Phone className="h-4 w-4 text-gray-300" />
-                  <span className="text-gray-300">{website.contact_phone}</span>
+                  <span className="text-gray-300">{contactInfo.contact_phone}</span>
                 </div>
               )}
-              {website?.contact_address && (
+              {contactInfo?.contact_address && (
                 <div className="flex items-center space-x-2">
                   <MapPin className="h-4 w-4 text-gray-300" />
-                  <span className="text-gray-300">{website.contact_address}</span>
+                  <span className="text-gray-300">{contactInfo.contact_address}</span>
                 </div>
               )}
             </div>
